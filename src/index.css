@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  /* Green */
+  --color-green-900: hsl(180, 14%, 20%);
+  --color-green-400: hsl(180, 29%, 50%);
+  --color-green-350: hsl(180, 39%, 56%);
+  --color-green-50: hsl(180, 52%, 96%);
+
+  /* Gray */
+  --color-gray-400: hsl(180, 8%, 52%);
+  --color-gray-300: hsl(180, 10%, 74%);
+
+  /* WHite */
+  --color-white: hsl(0, 100%, 100%);
+
+  /* Black */
+  --color-black: hsl(0, 0%, 0%);
+
+  /* Font family */
+  --font-league: "League Spartan Variable", sans-serif;
+
+  /* Font size */
+  --font-size-22: 1.375rem;
+  --font-size-18: 1.125rem;
+  --font-size-16: 1rem;
+  --font-size-15: 0.9375rem;
+  --font-size-14: 0.875rem;
+
+  /* Font weight */
+  --font-weight-bold: 700;
+  --font-weight-medium: 500;
+}
+
+body {
+  background-color: var(--color-green-50);
+  font-family: var(--font-league);
+  font-size: var(--font-size-15);
+}
