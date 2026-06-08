@@ -24,6 +24,18 @@ export default function App() {
     return [...activeFilters].every((filter) => tags.includes(filter));
   });
 
+  const handleRemoveFilter = (tag: string) => {
+    setActiveFilters((prev) => {
+      const filterCopy = new Set(prev);
+      filterCopy.delete(tag);
+      return filterCopy;
+    });
+  };
+
+  const handleClearFilters = () => {
+    setActiveFilters(new Set());
+  };
+
   return (
     <main>
       <div className="h-39 w-full bg-green-400">
@@ -39,7 +51,11 @@ export default function App() {
       </div>
       {activeFilters.size > 0 && (
         <div className="relative z-10 container mx-auto -mt-10 px-6 md:px-10">
-          <FilterBar activeFilters={activeFilters} />
+          <FilterBar
+            activeFilters={activeFilters}
+            onFilterRemove={handleRemoveFilter}
+            onFilterClear={handleClearFilters}
+          />
         </div>
       )}
 

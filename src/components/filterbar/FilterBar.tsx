@@ -1,10 +1,16 @@
 import RemoveIcon from "/images/icon-remove.svg";
 
-interface FilterBarProps {
+type FilterBarProps = {
   activeFilters: Set<string>;
-}
+  onFilterRemove: (tag: string) => void;
+  onFilterClear: () => void;
+};
 
-export default function FilterBar({ activeFilters }: FilterBarProps) {
+export default function FilterBar({
+  activeFilters,
+  onFilterRemove,
+  onFilterClear,
+}: FilterBarProps) {
   const activeFiltersArray = [...activeFilters];
 
   return (
@@ -22,6 +28,7 @@ export default function FilterBar({ activeFilters }: FilterBarProps) {
               className="flex items-center bg-green-400 p-2 hover:cursor-pointer hover:bg-green-900"
               type="button"
               aria-label={`Remove ${filter} filter`}
+              onClick={() => onFilterRemove(filter)}
             >
               <img src={RemoveIcon} alt="" aria-hidden="true" />
             </button>
@@ -31,6 +38,7 @@ export default function FilterBar({ activeFilters }: FilterBarProps) {
       <button
         className="text-base font-bold text-gray-400 hover:cursor-pointer hover:text-green-400"
         type="button"
+        onClick={onFilterClear}
       >
         Clear
       </button>
