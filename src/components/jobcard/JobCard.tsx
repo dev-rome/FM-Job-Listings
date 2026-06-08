@@ -1,12 +1,14 @@
 import type { Job } from "../../types/job";
+import getJobTags from "../../utils/getJobTags";
 
 type JobCardProps = {
   job: Job;
+  onFilterClick: (tag: string) => void;
 };
 
-export default function JobCard({ job }: JobCardProps) {
+export default function JobCard({ job, onFilterClick }: JobCardProps) {
   const jobMeta = [job.postedAt, job.contract, job.location];
-  const jobTags = [job.role, job.level, ...job.languages, ...job.tools];
+  const jobTags = getJobTags(job);
   const badge =
     "leading-none text-white px-2 pt-2 pb-1 rounded-3xl text-sm font-bold lg:pt-3 lg:pb-2";
 
@@ -61,6 +63,7 @@ export default function JobCard({ job }: JobCardProps) {
               <button
                 type="button"
                 className="rounded-sm bg-green-50 px-4 pt-2 pb-1.5 text-base leading-none font-bold text-green-400"
+                onClick={() => onFilterClick(tag)}
               >
                 {tag}
               </button>
