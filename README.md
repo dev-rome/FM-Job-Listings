@@ -1,25 +1,19 @@
 # Frontend Mentor - Job listings with filtering solution
 
-This is a solution to the [Job listings with filtering challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/job-listings-with-filtering-ivstIPCt). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Job listings with filtering challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/job-listings-with-filtering-ivstIPCt). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
-- [Frontend Mentor - Job listings with filtering solution](#frontend-mentor---job-listings-with-filtering-solution)
-  - [Table of contents](#table-of-contents)
-  - [Overview](#overview)
-    - [The challenge](#the-challenge)
-    - [Screenshot](#screenshot)
-    - [Links](#links)
-  - [My process](#my-process)
-    - [Built with](#built-with)
-    - [What I learned](#what-i-learned)
-    - [Continued development](#continued-development)
-    - [Useful resources](#useful-resources)
-    - [AI Collaboration](#ai-collaboration)
-  - [Author](#author)
-  - [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+- [Getting started](#getting-started)
+- [Author](#author)
 
 ## Overview
 
@@ -31,95 +25,88 @@ Users should be able to:
 - See hover states for all interactive elements on the page
 - Filter job listings based on the categories
 
+When a user clicks a tag on a job listing (role, level, language, or tool), it is
+added to a filter bar at the top of the listings. Multiple filters combine with
+**AND** logic — only jobs matching *every* selected tag remain visible. Individual
+filters can be removed, or all of them cleared at once.
+
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+<!-- TODO: add a screenshot of the finished solution and update this path -->
+![](./design/desktop-design.jpg)
+![](./design/mobile-design.jpg)
+![](./design/mobile-with-filters.jpg)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: <!-- TODO: add your Frontend Mentor solution URL -->
+- Live Site URL: <!-- TODO: add your deployed live site URL -->
 
 ## My process
 
 ### Built with
 
+- [React 19](https://react.dev/) — UI library
+- [TypeScript](https://www.typescriptlang.org/) — typed component props and job data
+- [Vite](https://vite.dev/) — build tool and dev server
+- [Tailwind CSS v4](https://tailwindcss.com/) — utility-first styling with theme tokens
+- [League Spartan](https://fontsource.org/fonts/league-spartan) via Fontsource
 - Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- Mobile-first, responsive workflow (Flexbox & CSS Grid)
+- Accessibility-minded: live region for result counts, `sr-only` headings, descriptive `aria-label`s, and a responsive `<picture>` header
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+### Project structure
+
+```
+src/
+├── App.tsx                       # owns filter state and the visible-jobs derivation
+├── data/data.ts                  # job listings, typed with `satisfies Job[]`
+├── types/job.ts                  # the Job type
+├── utils/getJobTags.ts           # flattens role/level/languages/tools into one tag list
+└── components/
+    ├── jobcard/JobCard.tsx       # single listing; tag buttons emit filter clicks
+    └── filterbar/FilterBar.tsx   # active filters with remove/clear controls
+```
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+State for the active filters is held as a `Set<string>` in `App`, which keeps tags
+unique and makes add/remove/clear operations clean. The visible list is *derived*
+from that state on each render rather than stored separately:
 
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+```tsx
+const visibleJobs = jobs.filter((job) => {
+  const tags = getJobTags(job);
+  return [...activeFilters].every((filter) => tags.includes(filter));
+});
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+A single `getJobTags` helper is the source of truth for what counts as a tag, so
+the card buttons and the filter-matching logic can never drift apart.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+## Getting started
 
-### Continued development
+Requires [Node.js](https://nodejs.org/) and npm.
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+```bash
+# install dependencies
+npm install
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+# start the dev server
+npm run dev
 
-### Useful resources
+# type-check and build for production
+npm run build
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+# preview the production build
+npm run preview
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
-### AI Collaboration
-
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
-
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
-
-**Note: Delete this note and the content above if you didn't use AI, or replace with your own experience.**
+# lint
+npm run lint
+```
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@dev-rome](https://www.frontendmentor.io/profile/dev-rome)
+- X - [@rome-dev](https://www.x.com/rome_dev)
+- Linkedin - [Jerome-Haynes](https://www.linkedin.com/in/jerome-haynes/)
