@@ -1,15 +1,18 @@
 import { useState } from "react";
 import MobileHeader from "/images/bg-header-mobile.svg";
 import DesktopHeader from "/images/bg-header-desktop.svg";
-import type { Job } from "./types/job";
-import data from "./data/data.json";
+import { jobs } from "./data/data";
 import getJobTags from "./utils/getJobTags";
 import JobCard from "./components/jobcard/JobCard";
 import FilterBar from "./components/filterbar/FilterBar";
 
 export default function App() {
   const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
-  const jobData = data as Job[];
+
+  const visibleJobs = jobs.filter((job) => {
+    const tags = getJobTags(job);
+    return [...activeFilters].every((filter) => tags.includes(filter));
+  });
 
   const handleFilterClick = (tag: string) => {
     setActiveFilters((prev) => {
@@ -18,11 +21,6 @@ export default function App() {
       return next;
     });
   };
-
-  const visibleJobs = jobData.filter((job) => {
-    const tags = getJobTags(job);
-    return [...activeFilters].every((filter) => tags.includes(filter));
-  });
 
   const handleRemoveFilter = (tag: string) => {
     setActiveFilters((prev) => {
