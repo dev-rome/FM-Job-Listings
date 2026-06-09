@@ -39,7 +39,7 @@ export default function JobCard({ job, onFilterClick }: JobCardProps) {
                 )}
               </div>
             </div>
-            <h2 className="text-base font-bold text-green-900 lg:text-[1.375rem]">
+            <h2 className="text-base font-bold text-green-900 hover:cursor-pointer hover:text-green-400 lg:text-[1.375rem]">
               {job.position}
             </h2>
             <ul className="flex">
@@ -62,7 +62,7 @@ export default function JobCard({ job, onFilterClick }: JobCardProps) {
             <li key={tag}>
               <button
                 type="button"
-                className="rounded-sm bg-green-50 px-4 pt-2 pb-1.5 text-base leading-none font-bold text-green-400"
+                className="rounded-sm bg-green-50 px-4 pt-2 pb-1.5 text-base leading-none font-bold text-green-400 hover:cursor-pointer hover:bg-green-400 hover:text-white"
                 aria-label={`Filter by ${tag}`}
                 onClick={() => onFilterClick(tag)}
               >
