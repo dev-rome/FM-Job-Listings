@@ -27,20 +27,19 @@ Users should be able to:
 
 When a user clicks a tag on a job listing (role, level, language, or tool), it is
 added to a filter bar at the top of the listings. Multiple filters combine with
-**AND** logic — only jobs matching *every* selected tag remain visible. Individual
+**AND** logic — only jobs matching _every_ selected tag remain visible. Individual
 filters can be removed, or all of them cleared at once.
 
 ### Screenshot
 
-<!-- TODO: add a screenshot of the finished solution and update this path -->
 ![](./design/desktop-design.jpg)
 ![](./design/mobile-design.jpg)
 ![](./design/mobile-with-filters.jpg)
 
 ### Links
 
-- Solution URL: <!-- TODO: add your Frontend Mentor solution URL -->
-- Live Site URL: <!-- TODO: add your deployed live site URL -->
+- [Solution URL](https://www.frontendmentor.io/solutions/job-listings-with-filtering-react-19-typescript-and-tailwind-v4-fCwEE90cTp)
+- [Live Site](https://euphonious-smakager-6b27d9.netlify.app/)
 
 ## My process
 
@@ -71,7 +70,7 @@ src/
 ### What I learned
 
 State for the active filters is held as a `Set<string>` in `App`, which keeps tags
-unique and makes add/remove/clear operations clean. The visible list is *derived*
+unique and makes add/remove/clear operations clean. The visible list is _derived_
 from that state on each render rather than stored separately:
 
 ```tsx
