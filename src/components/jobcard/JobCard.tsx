@@ -63,6 +63,7 @@ export default function JobCard({ job, onFilterClick }: JobCardProps) {
               <button
                 type="button"
                 className="rounded-sm bg-green-50 px-4 pt-2 pb-1.5 text-base leading-none font-bold text-green-400"
+                aria-label={`Filter by ${tag}`}
                 onClick={() => onFilterClick(tag)}
               >
                 {tag}
