@@ -43,6 +43,7 @@ export default function App() {
             src={MobileHeader}
             alt=""
             aria-hidden="true"
+            fetchPriority="high"
             className="h-full w-full object-cover"
           />
         </picture>
